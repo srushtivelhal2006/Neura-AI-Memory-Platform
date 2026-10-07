@@ -1,0 +1,363 @@
+{
+  "info": {
+    "name": "Pragma Memory API",
+    "description": "Complete API collection for Pragma — AI Memory Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "api_key",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "tenant_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "memory_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "user_123",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "1. Register Tenant",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set('api_key', jsonData.api_key);",
+                  "pm.collectionVariables.set('tenant_id', jsonData.tenant_id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Company\",\n  \"tier\": \"free\"\n}"
+            },
+            "url": "{{base_url}}/v1/auth/register"
+          }
+        },
+        {
+          "name": "2. List API Keys",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": "{{base_url}}/v1/auth/keys"
+          }
+        },
+        {
+          "name": "3. Create Additional Key",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Production Key\"\n}"
+            },
+            "url": "{{base_url}}/v1/auth/keys"
+          }
+        },
+        {
+          "name": "4. Revoke Key",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": "{{base_url}}/v1/auth/keys/{{key_id_to_revoke}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Memory CRUD",
+      "item": [
+        {
+          "name": "1. Create Memory — Explicit Fact",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.collectionVariables.set('memory_id', jsonData.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"app_id\": \"chatbot_v1\",\n  \"content\": \"User's name is Alice and she works at Acme Corp as a senior engineer\",\n  \"memory_type\": \"explicit_fact\",\n  \"session_id\": \"session_001\",\n  \"tags\": [\"identity\", \"work\"]\n}"
+            },
+            "url": "{{base_url}}/v1/memory"
+          }
+        },
+        {
+          "name": "2. Create Memory — Preference",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"app_id\": \"chatbot_v1\",\n  \"content\": \"User prefers dark mode, concise responses, and Python code examples\",\n  \"memory_type\": \"preference\",\n  \"session_id\": \"session_001\",\n  \"tags\": [\"ui\", \"communication\", \"coding\"]\n}"
+            },
+            "url": "{{base_url}}/v1/memory"
+          }
+        },
+        {
+          "name": "3. Create Memory — Entity",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"app_id\": \"chatbot_v1\",\n  \"content\": \"Alice knows Bob from the Machine Learning team. They worked together on Project Phoenix.\",\n  \"memory_type\": \"entity\",\n  \"session_id\": \"session_002\",\n  \"tags\": [\"people\", \"projects\"]\n}"
+            },
+            "url": "{{base_url}}/v1/memory"
+          }
+        },
+        {
+          "name": "4. Create Memory — Temporal Fact",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"app_id\": \"chatbot_v1\",\n  \"content\": \"User is currently on vacation until July 15th\",\n  \"memory_type\": \"temporal_fact\",\n  \"valid_until\": \"2025-07-15T00:00:00Z\",\n  \"tags\": [\"availability\"]\n}"
+            },
+            "url": "{{base_url}}/v1/memory"
+          }
+        },
+        {
+          "name": "5. List Memories",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/memory/list?user_id={{user_id}}&page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "memory", "list"],
+              "query": [
+                { "key": "user_id", "value": "{{user_id}}" },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "20" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "6. Get Memory by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": "{{base_url}}/v1/memory/{{memory_id}}"
+          }
+        },
+        {
+          "name": "7. Update Memory",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"User's name is Alice and she is now a Staff Engineer at Acme Corp\",\n  \"tags\": [\"identity\", \"work\", \"promotion\"]\n}"
+            },
+            "url": "{{base_url}}/v1/memory/{{memory_id}}"
+          }
+        },
+        {
+          "name": "8. Get Memory History",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": "{{base_url}}/v1/memory/history/{{memory_id}}"
+          }
+        },
+        {
+          "name": "9. Delete Memory",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": "{{base_url}}/v1/memory/{{memory_id}}"
+          }
+        },
+        {
+          "name": "10. Delete All User Memories",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": "{{base_url}}/v1/memory/user/{{user_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "item": [
+        {
+          "name": "1. Basic Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/memory/search?q=dark mode preferences&user_id={{user_id}}&top_k=10",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "memory", "search"],
+              "query": [
+                { "key": "q", "value": "dark mode preferences" },
+                { "key": "user_id", "value": "{{user_id}}" },
+                { "key": "top_k", "value": "10" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "2. Search with App Filter",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/memory/search?q=project work&user_id={{user_id}}&app_id=chatbot_v1&top_k=5",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "memory", "search"],
+              "query": [
+                { "key": "q", "value": "project work" },
+                { "key": "user_id", "value": "{{user_id}}" },
+                { "key": "app_id", "value": "chatbot_v1" },
+                { "key": "top_k", "value": "5" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Entity Relationship Search",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "url": {
+              "raw": "{{base_url}}/v1/memory/search?q=Alice Bob Machine Learning&user_id={{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["v1", "memory", "search"],
+              "query": [
+                { "key": "q", "value": "Alice Bob Machine Learning" },
+                { "key": "user_id", "value": "{{user_id}}" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Export & Import",
+      "item": [
+        {
+          "name": "1. Export Memories",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\"\n}"
+            },
+            "url": "{{base_url}}/v1/memory/export"
+          }
+        },
+        {
+          "name": "2. Import Memories",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{api_key}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schema_version\": \"1.0\",\n  \"user_id\": \"imported_user\",\n  \"memories\": [\n    {\n      \"content\": \"Imported user prefers TypeScript over JavaScript\",\n      \"memory_type\": \"preference\",\n      \"tags\": [\"coding\"],\n      \"app_id\": \"external_app\"\n    },\n    {\n      \"content\": \"Imported user works at BigTech Corp\",\n      \"memory_type\": \"explicit_fact\",\n      \"tags\": [\"work\"],\n      \"app_id\": \"external_app\"\n    }\n  ],\n  \"metadata\": {\n    \"source_platform\": \"other_platform\"\n  }\n}"
+            },
+            "url": "{{base_url}}/v1/memory/import"
+          }
+        }
+      ]
+    }
+  ]
+}

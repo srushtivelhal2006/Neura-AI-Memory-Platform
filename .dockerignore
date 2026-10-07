@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+*.md
+dashboard/node_modules
+dashboard/dist
+.DS_Store
+coverage
+.cache
