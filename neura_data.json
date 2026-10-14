@@ -1,0 +1,332 @@
+{
+  "tenants": [
+    {
+      "id": "tenant_b13f4f7f",
+      "name": "Hackathon Team",
+      "tier": "free",
+      "created_at": "2026-10-14T17:52:43.559Z"
+    },
+    {
+      "id": "tenant_b5174b1e",
+      "name": "aditya",
+      "tier": "free",
+      "created_at": "2026-10-14T17:55:36.148Z"
+    },
+    {
+      "id": "tenant_c415b95e",
+      "name": "Team Neura Hackathon",
+      "email": "hackathon@neura.ai",
+      "tier": "developer",
+      "created_at": "2026-10-14T18:48:17.012Z"
+    }
+  ],
+  "keys": [
+    {
+      "id": "key_1",
+      "tenant_id": "tenant_b13f4f7f",
+      "name": "Default Agent Key",
+      "key_prefix": "neura_live_4e1...",
+      "full_key": "neura_live_4e1f5c1dd7c7c2900467410a0922cf81",
+      "is_active": true,
+      "created_at": "2026-10-14T17:52:43.559Z",
+      "last_used_at": "2026-10-14T17:52:43.559Z"
+    },
+    {
+      "id": "key_9e8d6df2",
+      "tenant_id": "tenant_b5174b1e",
+      "name": "aditya Key",
+      "key_prefix": "neura_live_8e5...",
+      "full_key": "neura_live_8e5494a8a60b32fc1b34d1f1a308fdd1",
+      "is_active": true,
+      "created_at": "2026-10-14T17:55:36.148Z",
+      "last_used_at": "2026-10-14T17:55:36.148Z"
+    },
+    {
+      "id": "key_41f35a88",
+      "tenant_id": "tenant_c415b95e",
+      "name": "Team Neura Hackathon Primary Key",
+      "key_prefix": "neura_live_955...",
+      "full_key": "neura_live_9554bf210f98814bf27026c8608aa3fe",
+      "is_active": true,
+      "created_at": "2026-10-14T18:48:17.012Z",
+      "last_used_at": "2026-10-14T18:48:17.012Z"
+    }
+  ],
+  "memories": [
+    {
+      "id": "mem_dc762280",
+      "user_id": "aditya",
+      "content": "Antigravity AI Agent is now linked with Neura API! Session memory is synchronized.",
+      "memory_type": "explicit_fact",
+      "confidence_score": 0.95,
+      "source": "semantic",
+      "created_at": "2026-10-14T17:54:31.223Z"
+    },
+    {
+      "id": "mem_1",
+      "tenant_id": "tenant_b13f4f7f",
+      "user_id": "aditya",
+      "content": "User prefers writing backend APIs in Node.js and TypeScript.",
+      "memory_type": "preference",
+      "confidence_score": 0.95,
+      "source": "semantic",
+      "created_at": "2026-10-13T17:52:43.559Z"
+    },
+    {
+      "id": "mem_2",
+      "tenant_id": "tenant_b13f4f7f",
+      "user_id": "aditya",
+      "content": "Project architecture uses PostgreSQL with pgvector for embeddings and Neo4j for entity graphs.",
+      "memory_type": "explicit_fact",
+      "confidence_score": 0.98,
+      "source": "keyword",
+      "created_at": "2026-10-14T05:52:43.559Z"
+    },
+    {
+      "id": "mem_3",
+      "tenant_id": "tenant_b13f4f7f",
+      "user_id": "aditya",
+      "content": "When generating UI components, always use dark mode with Tailwind CSS and violet accents.",
+      "memory_type": "behavioral_pattern",
+      "confidence_score": 0.92,
+      "source": "graph",
+      "created_at": "2026-10-14T15:52:43.559Z"
+    }
+  ],
+  "history": [],
+  "providers": [
+    {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "icon": "anthropic",
+      "description": "Anthropic Claude models with extended reasoning & prompt cache",
+      "models": [
+        "claude-opus-4-6",
+        "claude-3-7-sonnet",
+        "claude-3-5-haiku"
+      ],
+      "selected_model": "claude-opus-4-6",
+      "api_key_masked": "",
+      "api_key": "",
+      "endpoint": "https://api.anthropic.com/v1",
+      "is_enabled": true,
+      "is_default": true,
+      "cli_supported": true,
+      "api_supported": true,
+      "cli_name": "claude",
+      "status": "configured",
+      "status_message": "Default provider active"
+    },
+    {
+      "id": "openai",
+      "name": "OpenAI",
+      "icon": "openai",
+      "description": "OpenAI frontier models with structured outputs and reasoning",
+      "models": [
+        "gpt-5.4",
+        "gpt-4o",
+        "gpt-4o-mini",
+        "o3-mini"
+      ],
+      "selected_model": "gpt-5.4",
+      "api_key_masked": "",
+      "api_key": "",
+      "endpoint": "https://api.openai.com/v1",
+      "is_enabled": true,
+      "is_default": false,
+      "cli_supported": true,
+      "api_supported": true,
+      "cli_name": "openai",
+      "status": "configured",
+      "status_message": "Direct API & CLI available"
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "icon": "gemini",
+      "description": "Google multimodal models with million-token context window",
+      "models": [
+        "gemini-2.5-flash",
+        "gemini-2.5-pro"
+      ],
+      "selected_model": "gemini-2.5-flash",
+      "api_key_masked": "",
+      "api_key": "",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+      "is_enabled": true,
+      "is_default": false,
+      "cli_supported": true,
+      "api_supported": true,
+      "cli_name": "gemini",
+      "status": "configured",
+      "status_message": "Native context provider"
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "icon": "opencode",
+      "description": "Local & open weights models with zero data telemetry",
+      "models": [
+        "opencode/gpt-5-nano",
+        "deepseek-r1:8b",
+        "llama-3.3-70b"
+      ],
+      "selected_model": "opencode/gpt-5-nano",
+      "api_key_masked": "not-required",
+      "api_key": "",
+      "endpoint": "http://localhost:11434/v1",
+      "is_enabled": true,
+      "is_default": false,
+      "cli_supported": true,
+      "api_supported": false,
+      "cli_name": "opencode",
+      "status": "configured",
+      "status_message": "Local CLI runtime ready"
+    },
+    {
+      "id": "copilot",
+      "name": "GitHub Copilot",
+      "icon": "copilot",
+      "description": "GitHub Copilot agent integration and proxy runtime",
+      "models": [
+        "claude-sonnet-4.6",
+        "gpt-4o-copilot"
+      ],
+      "selected_model": "claude-sonnet-4.6",
+      "api_key_masked": "",
+      "api_key": "",
+      "endpoint": "https://api.githubcopilot.com",
+      "is_enabled": true,
+      "is_default": false,
+      "cli_supported": false,
+      "api_supported": true,
+      "cli_name": "",
+      "status": "configured",
+      "status_message": "Copilot bridge enabled"
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv_7da668d1",
+      "user_id": "aditya",
+      "title": "What architecture did I use for brai",
+      "created_at": "2026-10-14T19:42:39.315Z",
+      "messages": [
+        {
+          "id": "msg_c123eaa6",
+          "role": "user",
+          "content": "What architecture did I use for brain tumor classification?",
+          "timestamp": "2026-10-14T19:42:39.316Z"
+        },
+        {
+          "id": "msg_d91b9377",
+          "role": "assistant",
+          "content": "Based on your saved context in Neura, here is what was found:\n\n1. **[explicit_fact]**: Project architecture uses PostgreSQL with pgvector for embeddings and Neo4j for entity graphs.\n2. **[preference]**: User prefers writing backend APIs in Node.js and TypeScript.\n3. **[behavioral_pattern]**: When generating UI components, always use dark mode with Tailwind CSS and violet accents.\n\n*These matching memories have been cited below as verified sources from your Neura memory bank.*",
+          "timestamp": "2026-10-14T19:42:39.316Z",
+          "sources": [
+            {
+              "id": "mem_2",
+              "content": "Project architecture uses PostgreSQL with pgvector for embeddings and Neo4j for entity graphs.",
+              "memory_type": "explicit_fact",
+              "similarity": 0.96,
+              "source": "keyword"
+            },
+            {
+              "id": "mem_1",
+              "content": "User prefers writing backend APIs in Node.js and TypeScript.",
+              "memory_type": "preference",
+              "similarity": 0.91,
+              "source": "semantic"
+            },
+            {
+              "id": "mem_3",
+              "content": "When generating UI components, always use dark mode with Tailwind CSS and violet accents.",
+              "memory_type": "behavioral_pattern",
+              "similarity": 0.86,
+              "source": "graph"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conv_2a2b5e60",
+      "user_id": "aditya",
+      "title": "What architecture did I use in my pr",
+      "created_at": "2026-10-14T18:20:07.602Z",
+      "messages": [
+        {
+          "id": "msg_71ae0ab6",
+          "role": "user",
+          "content": "What architecture did I use in my previous project?",
+          "timestamp": "2026-10-14T18:20:07.602Z"
+        },
+        {
+          "id": "msg_4cfefc53",
+          "role": "assistant",
+          "content": "Based on your saved context in Neura, here is what was found:\n\n1. **[explicit_fact]**: Project architecture uses PostgreSQL with pgvector for embeddings and Neo4j for entity graphs.\n2. **[preference]**: User prefers writing backend APIs in Node.js and TypeScript.\n3. **[behavioral_pattern]**: When generating UI components, always use dark mode with Tailwind CSS and violet accents.\n\n*These matching memories have been cited below as verified sources from your Neura memory bank.*",
+          "timestamp": "2026-10-14T18:20:07.603Z",
+          "sources": [
+            {
+              "id": "mem_2",
+              "content": "Project architecture uses PostgreSQL with pgvector for embeddings and Neo4j for entity graphs.",
+              "memory_type": "explicit_fact",
+              "similarity": 0.96,
+              "source": "keyword"
+            },
+            {
+              "id": "mem_1",
+              "content": "User prefers writing backend APIs in Node.js and TypeScript.",
+              "memory_type": "preference",
+              "similarity": 0.91,
+              "source": "semantic"
+            },
+            {
+              "id": "mem_3",
+              "content": "When generating UI components, always use dark mode with Tailwind CSS and violet accents.",
+              "memory_type": "behavioral_pattern",
+              "similarity": 0.86,
+              "source": "graph"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conv_61366a5e",
+      "user_id": "aditya",
+      "title": "Project Architecture & Memory Query",
+      "created_at": "2026-10-14T17:14:07.690Z",
+      "messages": [
+        {
+          "id": "msg_1",
+          "role": "user",
+          "content": "What architecture did I use in my previous project?",
+          "timestamp": "2026-10-14T17:15:47.692Z"
+        },
+        {
+          "id": "msg_2",
+          "role": "assistant",
+          "content": "Based on your saved memories in Neura:\n\n1. **Brain Tumor CNN Project**: You used a **ResNet-50 backbone with transfer learning in PyTorch**, which achieved **94.2% validation accuracy**.\n2. **Neura AI Memory Platform**: The system architecture is built with **PostgreSQL + pgvector** for vector embeddings and **Neo4j** for knowledge graph connections.\n\nBoth records are permanently stored in your Neura memory bank.",
+          "timestamp": "2026-10-14T17:15:57.693Z",
+          "sources": [
+            {
+              "id": "mem_2",
+              "content": "Previous Brain Tumor CNN project used a ResNet-50 backbone with transfer learning in PyTorch, achieving 94.2% validation accuracy.",
+              "memory_type": "explicit_fact",
+              "similarity": 0.96,
+              "source": "keyword"
+            },
+            {
+              "id": "mem_3",
+              "content": "Project architecture uses PostgreSQL with pgvector for embeddings and Neo4j for entity graphs.",
+              "memory_type": "explicit_fact",
+              "similarity": 0.91,
+              "source": "semantic"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

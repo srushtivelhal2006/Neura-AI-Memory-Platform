@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const apiKey = localStorage.getItem('pragma_api_key');
+  const apiKey = localStorage.getItem('neura_api_key');
   if (apiKey) {
     config.headers.Authorization = `Bearer ${apiKey}`;
   }
@@ -20,7 +20,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem('pragma_api_key');
+      localStorage.removeItem('neura_api_key');
       window.location.href = '/';
     }
     return Promise.reject(error);

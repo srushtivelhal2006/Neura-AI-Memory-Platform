@@ -6,7 +6,7 @@ const env = {
   isDev: (process.env.NODE_ENV || 'development') === 'development',
 
   database: {
-    url: process.env.DATABASE_URL || 'postgresql://pragma:pragma_dev@localhost:5432/pragma_db',
+    url: process.env.DATABASE_URL || 'postgresql://neura:neura_dev@localhost:5432/neura_db',
     poolMin: parseInt(process.env.DB_POOL_MIN, 10) || 2,
     poolMax: parseInt(process.env.DB_POOL_MAX, 10) || 20,
   },
@@ -18,7 +18,7 @@ const env = {
   neo4j: {
     uri: process.env.NEO4J_URI || 'bolt://localhost:7687',
     user: process.env.NEO4J_USER || 'neo4j',
-    password: process.env.NEO4J_PASSWORD || 'pragma_dev_password',
+    password: process.env.NEO4J_PASSWORD || 'neura_dev_password',
   },
 
   jwt: {

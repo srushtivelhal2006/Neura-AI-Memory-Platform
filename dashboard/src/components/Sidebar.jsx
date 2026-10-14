@@ -1,15 +1,23 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Brain, Search, Key, LogOut, Sparkles } from 'lucide-react';
+import { 
+  MessageSquare, LayoutDashboard, Brain, Search, Cpu, Blocks, 
+  Key, LogOut, Sparkles, Sun, Moon 
+} from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const navItems = [
+  { path: '/chat', label: 'Memory Chat', icon: MessageSquare, badge: 'New' },
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/memories', label: 'Memories', icon: Brain },
+  { path: '/memories', label: 'Memory Library', icon: Brain },
   { path: '/search', label: 'Search', icon: Search },
+  { path: '/providers', label: 'AI Providers', icon: Cpu },
+  { path: '/integrations', label: 'Integrations', icon: Blocks },
   { path: '/api-keys', label: 'API Keys', icon: Key },
 ];
 
 export default function Sidebar({ onLogout }) {
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <aside style={styles.sidebar}>
@@ -18,8 +26,8 @@ export default function Sidebar({ onLogout }) {
           <Sparkles size={22} color="#6366f1" />
         </div>
         <div>
-          <h1 style={styles.logoText}>Pragma</h1>
-          <span style={styles.logoSub}>Memory API</span>
+          <h1 style={styles.logoText}>Neura</h1>
+          <span style={styles.logoSub}>AI Memory Platform</span>
         </div>
       </div>
 
@@ -36,8 +44,11 @@ export default function Sidebar({ onLogout }) {
                 ...(isActive ? styles.navItemActive : {}),
               }}
             >
-              <Icon size={18} style={{ opacity: isActive ? 1 : 0.5 }} />
-              <span>{item.label}</span>
+              <Icon size={18} style={{ opacity: isActive ? 1 : 0.6 }} />
+              <span style={{ flex: 1 }}>{item.label}</span>
+              {item.badge && (
+                <span style={styles.badge}>{item.badge}</span>
+              )}
               {isActive && <div style={styles.activeIndicator} />}
             </NavLink>
           );
@@ -45,6 +56,16 @@ export default function Sidebar({ onLogout }) {
       </nav>
 
       <div style={styles.footer}>
+        {/* Theme Toggle Button */}
+        <button 
+          onClick={toggleTheme} 
+          style={styles.themeToggleBtn}
+          title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Theme`}
+        >
+          {theme === 'dark' ? <Sun size={16} color="#f59e0b" /> : <Moon size={16} color="#6366f1" />}
+          <span>{theme === 'dark' ? 'Light Theme' : 'Dark Theme'}</span>
+        </button>
+
         <button onClick={onLogout} style={styles.logoutBtn}>
           <LogOut size={16} />
           <span>Sign Out</span>
@@ -91,59 +112,84 @@ const styles = {
   },
   logoSub: {
     fontSize: 'var(--text-xs)',
-    color: 'var(--text-tertiary)',
-    fontWeight: 500,
+    color: 'var(--accent)',
+    fontWeight: 600,
   },
   nav: {
     flex: 1,
-    padding: '12px 10px',
+    padding: '16px 12px',
     display: 'flex',
     flexDirection: 'column',
     gap: '4px',
+    overflowY: 'auto',
   },
   navItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    padding: '10px 14px',
+    borderRadius: 'var(--radius-md)',
+    color: 'var(--text-secondary)',
+    textDecoration: 'none',
+    fontSize: 'var(--text-sm)',
+    fontWeight: 500,
+    transition: 'all 0.15s ease',
+    position: 'relative',
+  },
+  navItemActive: {
+    color: 'var(--text-primary)',
+    background: 'var(--accent-subtle)',
+    fontWeight: 600,
+  },
+  activeIndicator: {
+    position: 'absolute',
+    left: 0,
+    top: '20%',
+    bottom: '20%',
+    width: 3,
+    borderRadius: '0 3px 3px 0',
+    background: 'var(--accent)',
+  },
+  badge: {
+    fontSize: '10px',
+    fontWeight: 700,
+    padding: '2px 6px',
+    borderRadius: 'var(--radius-full)',
+    background: 'var(--accent)',
+    color: '#ffffff',
+    textTransform: 'uppercase',
+  },
+  footer: {
+    padding: '16px 14px',
+    borderTop: '1px solid var(--border)',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+  themeToggleBtn: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
     padding: '10px 14px',
     borderRadius: 'var(--radius-md)',
-    color: 'var(--text-secondary)',
-    fontSize: 'var(--text-sm)',
-    fontWeight: 500,
-    textDecoration: 'none',
-    transition: 'all 0.15s ease',
-    position: 'relative',
-    cursor: 'pointer',
-  },
-  navItemActive: {
+    border: '1px solid var(--border)',
+    background: 'var(--bg-input)',
     color: 'var(--text-primary)',
-    background: 'var(--accent-subtle)',
-  },
-  activeIndicator: {
-    position: 'absolute',
-    right: 0,
-    top: '50%',
-    transform: 'translateY(-50%)',
-    width: 3,
-    height: 20,
-    background: 'var(--accent)',
-    borderRadius: 'var(--radius-full)',
-  },
-  footer: {
-    padding: '16px',
-    borderTop: '1px solid var(--border)',
+    fontSize: 'var(--text-xs)',
+    fontWeight: 600,
+    cursor: 'pointer',
+    transition: 'all 0.15s ease',
   },
   logoutBtn: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
-    width: '100%',
+    gap: '10px',
     padding: '10px 14px',
-    background: 'transparent',
-    border: 'none',
     borderRadius: 'var(--radius-md)',
-    color: 'var(--text-tertiary)',
-    fontSize: 'var(--text-sm)',
+    border: 'none',
+    background: 'transparent',
+    color: 'var(--danger)',
+    fontSize: 'var(--text-xs)',
     fontWeight: 500,
     cursor: 'pointer',
     transition: 'all 0.15s ease',

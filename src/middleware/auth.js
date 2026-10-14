@@ -3,7 +3,7 @@ const { query } = require('../config/database');
 const { redis } = require('../config/redis');
 const env = require('../config/env');
 
-const AUTH_CACHE_PREFIX = 'pragma:auth:';
+const AUTH_CACHE_PREFIX = 'neura:auth:';
 
 async function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;

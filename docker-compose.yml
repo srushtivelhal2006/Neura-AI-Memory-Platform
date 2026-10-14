@@ -3,31 +3,31 @@ version: "3.9"
 services:
   postgres:
     image: pgvector/pgvector:pg16
-    container_name: pragma-postgres
+    container_name: neura-postgres
     environment:
-      POSTGRES_USER: pragma
-      POSTGRES_PASSWORD: pragma_dev
-      POSTGRES_DB: pragma_db
+      POSTGRES_USER: neura
+      POSTGRES_PASSWORD: neura_dev
+      POSTGRES_DB: neura_db
     ports:
       - "5432:5432"
     volumes:
-      - pragma_postgres_data:/var/lib/postgresql/data
+      - neura_postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pragma -d pragma_db"]
+      test: ["CMD-SHELL", "pg_isready -U neura -d neura_db"]
       interval: 5s
       timeout: 5s
       retries: 10
       start_period: 10s
     networks:
-      - pragma-net
+      - neura-net
 
   redis:
     image: redis:7-alpine
-    container_name: pragma-redis
+    container_name: neura-redis
     ports:
       - "6379:6379"
     volumes:
-      - pragma_redis_data:/data
+      - neura_redis_data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
@@ -35,19 +35,19 @@ services:
       retries: 10
       start_period: 5s
     networks:
-      - pragma-net
+      - neura-net
 
   neo4j:
     image: neo4j:5-community
-    container_name: pragma-neo4j
+    container_name: neura-neo4j
     environment:
-      NEO4J_AUTH: neo4j/pragma_dev_password
+      NEO4J_AUTH: neo4j/neura_dev_password
       NEO4J_PLUGINS: '[]'
     ports:
       - "7474:7474"
       - "7687:7687"
     volumes:
-      - pragma_neo4j_data:/data
+      - neura_neo4j_data:/data
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:7474 || exit 1"]
       interval: 10s
@@ -55,23 +55,23 @@ services:
       retries: 10
       start_period: 30s
     networks:
-      - pragma-net
+      - neura-net
 
   api:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: pragma-api
+    container_name: neura-api
     ports:
       - "3001:3001"
     environment:
       PORT: 3001
-      DATABASE_URL: postgresql://pragma:pragma_dev@postgres:5432/pragma_db
+      DATABASE_URL: postgresql://neura:neura_dev@postgres:5432/neura_db
       REDIS_URL: redis://redis:6379
       NEO4J_URI: bolt://neo4j:7687
       NEO4J_USER: neo4j
-      NEO4J_PASSWORD: pragma_dev_password
-      JWT_SECRET: pragma_docker_dev_secret_change_in_prod
+      NEO4J_PASSWORD: neura_dev_password
+      JWT_SECRET: neura_docker_dev_secret_change_in_prod
       NODE_ENV: development
     depends_on:
       postgres:
@@ -84,14 +84,14 @@ services:
       - .:/app
       - /app/node_modules
     networks:
-      - pragma-net
+      - neura-net
     restart: unless-stopped
 
 volumes:
-  pragma_postgres_data:
-  pragma_redis_data:
-  pragma_neo4j_data:
+  neura_postgres_data:
+  neura_redis_data:
+  neura_neo4j_data:
 
 networks:
-  pragma-net:
+  neura-net:
     driver: bridge

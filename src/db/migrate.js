@@ -3,7 +3,7 @@ const path = require('path');
 const { Pool } = require('pg');
 require('dotenv').config();
 
-const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://pragma:pragma_dev@localhost:5432/pragma_db';
+const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://neura:neura_dev@localhost:5432/neura_db';
 
 const pool = new Pool({ connectionString: DATABASE_URL });
 

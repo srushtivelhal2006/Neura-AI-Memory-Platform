@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "Pragma Memory API",
-    "description": "Complete API collection for Pragma — AI Memory Service",
+    "name": "Neura Memory API",
+    "description": "Complete API collection for Neura — AI Memory Service",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [

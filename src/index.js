@@ -93,7 +93,7 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 async function startServer() {
-  console.log('\n🚀 Starting Pragma Memory API...\n');
+  console.log('\n🚀 Starting Neura Memory API...\n');
 
   const pgConnected = await db.testConnection();
   if (!pgConnected) {
@@ -122,7 +122,7 @@ async function startServer() {
   });
 
   const server = app.listen(env.port, () => {
-    console.log(`\n✅ Pragma API running on http://localhost:${env.port}`);
+    console.log(`\n✅ Neura API running on http://localhost:${env.port}`);
     console.log(`   Health check: http://localhost:${env.port}/health`);
     console.log(`   Environment: ${env.nodeEnv}\n`);
   });

@@ -60,7 +60,7 @@ async function delPattern(pattern) {
 }
 
 function buildKey(tenantId, userId, operation, extra = '') {
-  let key = `pragma:${tenantId}:${userId}:${operation}`;
+  let key = `neura:${tenantId}:${userId}:${operation}`;
   if (extra) {
     key += `:${extra}`;
   }
@@ -68,7 +68,7 @@ function buildKey(tenantId, userId, operation, extra = '') {
 }
 
 async function invalidateUserCache(tenantId, userId) {
-  const pattern = `pragma:${tenantId}:${userId}:*`;
+  const pattern = `neura:${tenantId}:${userId}:*`;
   return delPattern(pattern);
 }
 

@@ -1,11 +1,14 @@
 {
-  "name": "pragma-memory-api",
+  "name": "neura-memory-api",
   "version": "1.0.0",
   "description": "Production-ready B2B AI memory-as-a-service API",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "server": "node NeuraServer.js",
     "dev": "nodemon src/index.js",
+    "dashboard:dev": "npm --prefix dashboard run dev",
+    "dashboard:build": "npm --prefix dashboard run build",
     "migrate": "node src/db/migrate.js",
     "lint": "eslint src/"
   },

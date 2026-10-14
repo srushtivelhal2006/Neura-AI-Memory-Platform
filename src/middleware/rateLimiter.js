@@ -1,7 +1,7 @@
 const { redis } = require('../config/redis');
 const env = require('../config/env');
 
-const RATE_LIMIT_PREFIX = 'pragma:ratelimit:';
+const RATE_LIMIT_PREFIX = 'neura:ratelimit:';
 
 function rateLimiter() {
   return async function rateLimitMiddleware(req, res, next) {

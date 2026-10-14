@@ -45,7 +45,7 @@ async function exportMemories(req, res, next) {
       })),
       entity_graph: entityGraph,
       metadata: {
-        source_platform: 'pragma',
+        source_platform: 'neura',
         total_memories: memoriesResult.rows.length,
         export_version: '1.0',
       },

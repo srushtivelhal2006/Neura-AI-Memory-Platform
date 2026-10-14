@@ -1,14 +1,25 @@
-# Pragma — AI Memory API Service
+# Neura — AI Memory & Context Platform (v2.0)
 
-> **Production-ready B2B memory-as-a-service API** that provides persistent, cross-platform, behavioral memory for AI agents and applications. Stores, retrieves, and manages memories using multi-strategy search (semantic vectors, keyword full-text, and knowledge graph).
+> **Production-ready B2B memory-as-a-service & AI Context Management Platform** that provides persistent, cross-platform, behavioral memory for AI agents, LLM applications, and developer teams. Features hybrid multi-strategy retrieval (semantic vectors, keyword full-text, and knowledge graph), unified AI Provider management, interactive Memory Chat, agent integrations, and dual-mode deployment.
+
+---
+
+## 🌟 What's New in v2.0
+
+- 🤖 **AI Providers Hub**: Unified configuration for Anthropic (Claude 3.7 / 3.5), OpenAI (GPT-4o, o3-mini), Google Gemini, Ollama (local weights), and GitHub Copilot.
+- 💬 **Interactive Memory Chat**: Multi-turn chat grounded in persistent user memories with verifiable context citations.
+- 🔌 **Agent & Tool Integrations**: Out-of-the-box templates and SDK code for LangChain, LlamaIndex, AutoGPT, CrewAI, and Model Context Protocol (MCP).
+- 🌓 **Dynamic Theme System**: Sleek macOS-inspired glassmorphic Dark and Light mode dashboard.
+- ⚡ **Zero-Dependency Instant Server (`NeuraServer.js`)**: Launch the complete backend and web dashboard instantly in Node.js without needing external Docker, Postgres, or Neo4j containers!
+- 🛡️ **Strict Multi-Layer Auth Validation**: Enhanced registration and API key security.
 
 ---
 
 ## Table of Contents
 
+- [Instant Launch (Zero Dependencies)](#-instant-launch-recommended-for-quick-eval)
 - [Prerequisites](#prerequisites)
-- [Quick Start](#quick-start)
-- [Running Without Docker](#running-without-docker)
+- [Quick Start with Docker](#quick-start-full-production-mode)
 - [Dashboard Setup](#dashboard-setup)
 - [Project Structure](#project-structure)
 - [Architecture](#architecture)
@@ -22,7 +33,30 @@
 
 ---
 
-## Prerequisites
+## ⚡ Instant Launch (Recommended for Quick Eval)
+
+Run the entire platform (API engine + embedded React Dashboard) with **zero external database dependencies**:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/srushtivelhal2006/Neura-AI-Memory-Platform.git
+cd Neura-AI-Memory-Platform
+
+# 2. Build the dashboard (if not already built)
+npm run dashboard:build
+
+# 3. Start the all-in-one Neura server
+npm run server
+```
+
+Open **`http://localhost:3001`** in your browser!
+- **Dashboard UI**: `http://localhost:3001`
+- **Health Check**: `http://localhost:3001/health`
+- **API Base**: `http://localhost:3001/v1`
+
+---
+
+## Prerequisites (For Full Docker Mode)
 
 | Tool | Minimum Version | Check Command |
 |------|----------------|---------------|
@@ -32,20 +66,11 @@
 | **npm** (for local dev) | 9.0+ | `npm --version` |
 | **Git** | 2.30+ | `git --version` |
 
-> **Note**: If you're running everything via Docker, you only need Docker and Docker Compose. Node.js is only required for local development and running the dashboard dev server.
-
 ---
 
-## Quick Start
+## Quick Start (Full Production Mode)
 
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/yourusername/Pragma.git
-cd Pragma
-```
-
-### 2. Set up environment
+### 1. Set up environment
 
 ```bash
 cp .env.example .env
@@ -53,7 +78,7 @@ cp .env.example .env
 
 The defaults work out of the box for local development — no changes needed.
 
-### 3. Start all services
+### 2. Start all services via Docker
 
 ```bash
 docker-compose up -d
@@ -63,7 +88,7 @@ This starts 4 services:
 - **PostgreSQL** (with pgvector) on port `5432`
 - **Redis** on port `6379`
 - **Neo4j** on port `7474` (browser) / `7687` (bolt)
-- **Pragma API** on port `3001`
+- **Neura API** on port `3001`
 
 ### 4. Wait for services to be healthy
 
@@ -182,7 +207,7 @@ npm start
 
 ## Dashboard Setup
 
-Pragma includes a React dashboard for managing memories via a web UI.
+Neura includes a React dashboard for managing memories via a web UI.
 
 ```bash
 # 1. Navigate to the dashboard directory
@@ -219,7 +244,7 @@ The built files will be in `dashboard/dist/` and are automatically served by the
 ## Project Structure
 
 ```
-Pragma/
+Neura/
 ├── docker-compose.yml          # 4 services: postgres, redis, neo4j, api
 ├── Dockerfile                  # Multi-stage Node.js 20 Alpine
 ├── package.json                # Backend dependencies
@@ -285,7 +310,7 @@ Pragma/
 │           └── ApiKeys.jsx
 │
 └── postman/
-    └── Pragma_API.postman_collection.json  # Full Postman collection
+    └── Neura_API.postman_collection.json  # Full Postman collection
 ```
 
 ---
@@ -619,7 +644,7 @@ curl -s -X DELETE "$BASE/v1/memory/user/alice" \
 
 ### Using Postman
 
-Import the collection from `postman/Pragma_API.postman_collection.json` into Postman. Run the requests in order — the collection auto-saves your API key and memory IDs between requests.
+Import the collection from `postman/Neura_API.postman_collection.json` into Postman. Run the requests in order — the collection auto-saves your API key and memory IDs between requests.
 
 ---
 
@@ -629,11 +654,11 @@ Import the collection from `postman/Pragma_API.postman_collection.json` into Pos
 |----------|---------|-------------|
 | `PORT` | `3001` | API server port |
 | `NODE_ENV` | `development` | Environment mode |
-| `DATABASE_URL` | `postgresql://pragma:pragma_dev@localhost:5432/pragma_db` | PostgreSQL connection string |
+| `DATABASE_URL` | `postgresql://neura:neura_dev@localhost:5432/neura_db` | PostgreSQL connection string |
 | `REDIS_URL` | `redis://localhost:6379` | Redis connection string |
 | `NEO4J_URI` | `bolt://localhost:7687` | Neo4j Bolt protocol URI |
 | `NEO4J_USER` | `neo4j` | Neo4j username |
-| `NEO4J_PASSWORD` | `pragma_dev_password` | Neo4j password |
+| `NEO4J_PASSWORD` | `neura_dev_password` | Neo4j password |
 | `JWT_SECRET` | `change_this_in_production` | Secret for JWT signing |
 | `EMBEDDING_MODEL` | `Xenova/all-MiniLM-L6-v2` | HuggingFace embedding model |
 | `EMBEDDING_DIMENSIONS` | `384` | Vector embedding dimensions |
@@ -648,7 +673,7 @@ Import the collection from `postman/Pragma_API.postman_collection.json` into Pos
 
 ## Search Strategy
 
-Pragma uses **Reciprocal Rank Fusion (RRF)** to merge results from three parallel search strategies:
+Neura uses **Reciprocal Rank Fusion (RRF)** to merge results from three parallel search strategies:
 
 1. **Semantic Search** — pgvector cosine similarity on 384-dim embeddings (MiniLM-L6-v2)
 2. **Keyword Search** — PostgreSQL tsvector full-text search with ts_rank_cd
@@ -669,7 +694,7 @@ Weights: semantic=1.0, keyword=0.8, graph=0.6, k=60
 | `postgres` | `pgvector/pgvector:pg16` | 5432 | Primary DB + vector embeddings |
 | `redis` | `redis:7-alpine` | 6379 | Cache + rate limiting |
 | `neo4j` | `neo4j:5-community` | 7474, 7687 | Entity relationship graph |
-| `api` | Node.js 20 Alpine | 3001 | Pragma API server |
+| `api` | Node.js 20 Alpine | 3001 | Neura API server |
 
 ### Useful Docker Commands
 
@@ -693,11 +718,11 @@ docker-compose down -v
 docker-compose exec api node src/db/migrate.js
 
 # Access PostgreSQL directly
-docker-compose exec postgres psql -U pragma -d pragma_db
+docker-compose exec postgres psql -U neura -d neura_db
 
 # Access Neo4j browser
 open http://localhost:7474
-# Login: neo4j / pragma_dev_password
+# Login: neo4j / neura_dev_password
 ```
 
 ---
