@@ -289,7 +289,7 @@ const server = http.createServer((req, res) => {
       return sendJson(200, {
         status: 'ok',
         version: '2.0.0',
-        name: 'Neura – AI Memory Platform',
+        name: 'Neura - AI Memory Platform',
         services: { postgres: 'healthy', redis: 'healthy', neo4j: 'healthy' }
       });
     }
